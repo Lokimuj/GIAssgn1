@@ -5,4 +5,8 @@ public class Color {
     public Color(int rgba) {
         this.rgba = rgba;
     }
+
+    public int getRgba() {
+        return rgba;
+    }
 }

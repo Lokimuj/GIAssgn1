@@ -22,6 +22,10 @@ public class Vector3D {
         return z;
     }
 
+    public Vector3D scalarMultiply(double scalar){
+        return new Vector3D(this.x*scalar, this.y * scalar, this.z * scalar);
+    }
+
     public double dot(Vector3D other){
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }
