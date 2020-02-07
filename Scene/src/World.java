@@ -3,7 +3,7 @@ import java.util.List;
 
 public class World {
 
-    private static final Color BACKGROUND_COLOR = new Color(0xFFFFFFFF);
+    private static final Color BACKGROUND_COLOR = new Color(0x000000FF);
 
     private List<Entity> objects = new ArrayList<>();
 
@@ -14,7 +14,7 @@ public class World {
 
         for(Entity object: objects){
             double currentDistance = object.intersect(ray);
-            if(currentDistance<shortestDistance){
+            if(currentDistance > 0 && currentDistance<shortestDistance){
                 shortestDistance = currentDistance;
                 closestObject = object;
             }

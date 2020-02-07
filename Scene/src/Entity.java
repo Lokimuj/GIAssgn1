@@ -1,13 +1,9 @@
 public abstract class Entity {
 
-    protected double x;
-    protected double y;
-    protected double z;
+    private Vector3D positiion;
 
-    public Entity(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public Entity(Vector3D position) {
+        this.positiion = position;
     }
 
     public abstract double intersect(Ray ray);
