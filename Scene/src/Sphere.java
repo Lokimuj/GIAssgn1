@@ -1,3 +1,6 @@
+/**
+ * Sphere entity
+ */
 public class Sphere implements Entity {
 
     private Vector3D center;

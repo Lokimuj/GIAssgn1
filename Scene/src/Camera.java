@@ -1,8 +1,14 @@
 import java.awt.image.BufferedImage;
 
+/**
+ * A camera that will render worlds passed into it via ray tracing. Future update will do camera-coordinate transformation.
+ * @author Adrian Postolache axp3806@rit.edu
+ */
 public class Camera {
 
     public static final int IMAGE_TYPE = BufferedImage.TYPE_INT_ARGB;
+
+    // This is used to determine a 'right' vector from a lookAt vector
     private static final Vector3D GLOBAL_UP = new Vector3D(0,0,1);
 
     private Vector3D position;
@@ -19,6 +25,11 @@ public class Camera {
         this.imageLength = imageLength;
     }
 
+    /**
+     * Takes in a world and shoots a ray into it for every pixel to render the objects in the world.
+     * @param world world to be rendered
+     * @return the rendered image
+     */
     public BufferedImage renderWorld(World world){
 
         BufferedImage output = new BufferedImage(imageLength, imageLength, IMAGE_TYPE);

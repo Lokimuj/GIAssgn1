@@ -1,6 +1,9 @@
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Entity that is a co-planar polygon to be hit by rays
+ */
 public class Polygon implements Entity {
 
     private static final double ANGLE_ERROR_MARGIN = (2 * Math.PI)/1000.0;

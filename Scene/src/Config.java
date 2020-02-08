@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.List;
 
+/**
+ * Reads in a config file and builds a world and camera from it to be used for rendering
+ */
 public class Config {
 
     public static final String ATTRIBUTE_DELIMITER = ";";
