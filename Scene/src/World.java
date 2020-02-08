@@ -3,7 +3,7 @@ import java.util.List;
 
 public class World {
 
-    private static final Color BACKGROUND_COLOR = new Color(0x000000FF);
+    private static final Color BACKGROUND_COLOR = new Color(0xFFCCCCCC);
 
     private List<Entity> objects = new ArrayList<>();
 
@@ -20,6 +20,10 @@ public class World {
             }
         }
 
-        return closestObject == null ? BACKGROUND_COLOR : closestObject.hit(ray);
+        return closestObject == null ? BACKGROUND_COLOR : closestObject.getColor();
+    }
+
+    public void addObject(Entity object){
+        this.objects.add(object);
     }
 }

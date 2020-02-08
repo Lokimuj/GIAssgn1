@@ -23,7 +23,7 @@ public class Camera {
 
         BufferedImage output = new BufferedImage(imageLength, imageLength, IMAGE_TYPE);
 
-        double stepDistance = 1/((double) imageLength);
+        double stepDistance = 1.0/((double) imageLength);
         double halfStep = stepDistance/2;
 
         Vector3D sideStep = right.scalarMultiply(stepDistance);

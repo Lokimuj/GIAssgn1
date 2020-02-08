@@ -10,6 +10,15 @@ public class Vector3D {
         this.z = z;
     }
 
+    public static Vector3D parseVector(String vectorString){
+        String[] vectorArguments = vectorString.split(Config.LIST_DELIMITER);
+        return new Vector3D(
+                Double.parseDouble(vectorArguments[0]),
+                Double.parseDouble(vectorArguments[1]),
+                Double.parseDouble(vectorArguments[2])
+        );
+    }
+
     public double getX() {
         return x;
     }
@@ -23,7 +32,7 @@ public class Vector3D {
     }
 
     public Vector3D scalarMultiply(double scalar){
-        return new Vector3D(this.x*scalar, this.y * scalar, this.z * scalar);
+        return new Vector3D(this.x * scalar, this.y * scalar, this.z * scalar);
     }
 
     public double dot(Vector3D other){
@@ -60,5 +69,10 @@ public class Vector3D {
     public Vector3D normal(){
         double magnitude = this.magnitude();
         return new Vector3D(this.x/magnitude, this.y/magnitude, this.z/magnitude);
+    }
+
+    @Override
+    public String toString() {
+        return "[ " + this.x + ", "+ this.y + ", " + this.z + "]";
     }
 }

@@ -1,12 +1,6 @@
-public abstract class Entity {
+public interface Entity {
 
-    private Vector3D positiion;
+    double intersect(Ray ray);
 
-    public Entity(Vector3D position) {
-        this.positiion = position;
-    }
-
-    public abstract double intersect(Ray ray);
-
-    public abstract Color hit(Ray ray);
+    Color getColor();
 }
