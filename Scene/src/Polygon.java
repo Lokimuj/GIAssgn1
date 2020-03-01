@@ -4,20 +4,19 @@ import java.util.List;
 /**
  * Entity that is a co-planar polygon to be hit by rays
  */
-public class Polygon implements Entity {
+public class Polygon extends Entity {
 
     private static final double ANGLE_ERROR_MARGIN = (2 * Math.PI)/1000.0;
 
-    private Color color;
     private List<Vector3D> points;
     private Vector3D planeNormal;
     private double planeConstant;
 
-    public Polygon(Color color, Vector3D ... points){
+    public Polygon(ReflectiveProperties reflectiveProperties, Vector3D ... points){
+        super(reflectiveProperties);
         if(points.length < 3){
             throw new IllegalArgumentException("Polygon requires at least 3 points");
         }
-        this.color = color;
         this.points = Arrays.asList(points);
         Vector3D firstSide = points[0].subtract(points[1]);
         Vector3D secondSide = points[2].subtract(points[1]);
@@ -26,9 +25,12 @@ public class Polygon implements Entity {
     }
 
 
-    public static Polygon createRectangle(Color color, Vector3D center, Vector3D sideVector1, Vector3D sideVector2){
+    public static Polygon createRectangle(Vector3D center,
+                                          Vector3D sideVector1,
+                                          Vector3D sideVector2,
+                                          ReflectiveProperties reflectiveProperties){
         return new Polygon(
-                color,
+                reflectiveProperties,
                 center.add(sideVector1).subtract(sideVector2),
                 center.add(sideVector1).add(sideVector2),
                 center.subtract(sideVector1).add(sideVector2),
@@ -37,14 +39,14 @@ public class Polygon implements Entity {
     }
 
     @Override
-    public double intersect(Ray ray) {
+    public IntersectData intersect(Ray ray) {
         Vector3D origin = ray.getOrigin();
         Vector3D direction = ray.getDirection();
 
         double denominator = direction.dot(planeNormal);
-        if(denominator == 0) return Double.MAX_VALUE;
+        if(denominator == 0) return new IntersectData(null,null,null, Double.MAX_VALUE);
         double intersectScalar = - (origin.dot(planeNormal) + planeConstant) / denominator;
-        if(intersectScalar <= 0) return Double.MAX_VALUE;
+        if(intersectScalar <= 0) return new IntersectData(null,null,null, Double.MAX_VALUE);
 
         Vector3D intersect = origin.add(direction.scalarMultiply(intersectScalar));
 
@@ -56,14 +58,12 @@ public class Polygon implements Entity {
             prevLine = curLine;
         }
 
-        return angleSum > Math.PI*2 - ANGLE_ERROR_MARGIN && angleSum < Math.PI*2 + ANGLE_ERROR_MARGIN
-                ? intersectScalar
-                : Double.MAX_VALUE;
+        if(angleSum > Math.PI*2 - ANGLE_ERROR_MARGIN && angleSum < Math.PI*2 + ANGLE_ERROR_MARGIN){
+            Vector3D intersectPoint = ray.extendToPoint(intersectScalar);
+            return new IntersectData(intersectPoint, planeNormal.normal(), direction, intersectScalar);
+        }
 
+        return new IntersectData(null, null, null, Double.MAX_VALUE);
     }
 
-    @Override
-    public Color getColor() {
-        return color;
-    }
 }

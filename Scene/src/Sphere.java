@@ -1,20 +1,22 @@
 /**
  * Sphere entity
  */
-public class Sphere implements Entity {
+public class Sphere extends Entity {
 
     private Vector3D center;
     private double radius;
-    private Color color;
 
-    public Sphere(Vector3D center, double radius, Color color){
+    public Sphere(
+            Vector3D center,
+            double radius,
+            ReflectiveProperties reflectiveProperties){
+        super(reflectiveProperties);
         this.center = center;
         this.radius = radius;
-        this.color = color;
     }
 
     @Override
-    public double intersect(Ray ray) {
+    public IntersectData intersect(Ray ray) {
         Vector3D direction = ray.getDirection();
         Vector3D origin = ray.getOrigin();
         Vector3D cameraToCenter = origin.subtract(center);
@@ -25,7 +27,7 @@ public class Sphere implements Entity {
         double discriminant = b * b - 4 * c;
 
         if(discriminant < 0){
-            return Double.MAX_VALUE;
+            return new IntersectData(null, null, null, Double.MAX_VALUE);
         }
 
         double result = Double.MAX_VALUE;
@@ -40,11 +42,14 @@ public class Sphere implements Entity {
             result = testResult;
         }
 
-        return result;
+        if(result == Double.MAX_VALUE){
+            return new IntersectData(null, null, null, result);
+        }
+
+        Vector3D intersectionPoint = ray.extendToPoint(result);
+        Vector3D normal = intersectionPoint.subtract(center).normal();
+
+        return new IntersectData(intersectionPoint,normal,direction,result);
     }
 
-    @Override
-    public Color getColor() {
-        return color;
-    }
 }

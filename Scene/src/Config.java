@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.List;
 
 /**
  * Reads in a config file and builds a world and camera from it to be used for rendering
@@ -29,19 +28,28 @@ public class Config {
                     camera = new Camera(cameraPosition,cameraLookAt,imageSize);
                     break;
                 case "sphere":
-                    int sphereColor = 0xFF000000 | Integer.parseInt(parts[1],16);
-                    double radius = Double.parseDouble(parts[2]);
-                    Vector3D spherePosition = Vector3D.parseVector(parts[3]);
+                    double radius = Double.parseDouble(parts[1]);
+                    Vector3D spherePosition = Vector3D.parseVector(parts[2]);
+                    ReflectiveProperties sphereReflective = ReflectiveProperties.readFromString(parts[3]);
 
-                    world.addObject(new Sphere(spherePosition, radius, new Color(sphereColor)));
+                    world.addObject(new Sphere(spherePosition, radius, sphereReflective));
                     break;
                 case "rectangle":
-                    int rectColor = 0xFF000000 | Integer.parseInt(parts[1],16);
-                    Vector3D rectCenter = Vector3D.parseVector(parts[2]);
-                    Vector3D rectSide1 = Vector3D.parseVector(parts[3]);
-                    Vector3D rectSide2 = Vector3D.parseVector(parts[4]);
+                    Vector3D rectCenter = Vector3D.parseVector(parts[1]);
+                    Vector3D rectSide1 = Vector3D.parseVector(parts[2]);
+                    Vector3D rectSide2 = Vector3D.parseVector(parts[3]);
+                    ReflectiveProperties rectReflective = ReflectiveProperties.readFromString(parts[4]);
 
-                    world.addObject(Polygon.createRectangle(new Color(rectColor), rectCenter, rectSide1, rectSide2));
+                    world.addObject(Polygon.createRectangle(rectCenter, rectSide1, rectSide2, rectReflective));
+                    break;
+                case "light":
+                    Vector3D lightPosition = Vector3D.parseVector(parts[1]);
+                    Color lightColor = new Color(Vector3D.parseVector(parts[2]));
+                    world.addLight(new Light(lightPosition,lightColor));
+                    break;
+                case "ambient":
+                    Color ambientColor = new Color(Vector3D.parseVector(parts[1]));
+                    world.setAmbientColor(ambientColor);
                     break;
             }
         }

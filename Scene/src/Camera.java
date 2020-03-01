@@ -47,6 +47,10 @@ public class Camera {
         Vector3D leftStep = centerScreen.subtract(halfSideStep);
         Vector3D rightStep = centerScreen.add(halfSideStep);
 
+        Color[][] pixelColors = new Color[imageLength][imageLength];
+
+        double maxRadiance = 0;
+
         int leftX = imageLength/2 - 1;
         int rightX = imageLength/2;
         int upY = imageLength/2 - 1;
@@ -63,10 +67,26 @@ public class Camera {
                 Color upRightColor = world.traceRay(new Ray(position,rightUpStep));
                 Color downRightColor = world.traceRay(new Ray(position,rightDownStep));
 
-                output.setRGB(leftX-x, upY-y, upLeftColor.getRgba());
-                output.setRGB(leftX-x, downY+y, downLeftColor.getRgba());
-                output.setRGB(rightX+x, upY-y, upRightColor.getRgba());
-                output.setRGB(rightX+x, downY+y, downRightColor.getRgba());
+                pixelColors[leftX - x][upY - y] = upLeftColor;
+                pixelColors[leftX - x][downY + y] = downLeftColor;
+                pixelColors[rightX + x][upY - y] = upRightColor;
+                pixelColors[rightX + x][downY + y] = downRightColor;
+
+                if(upLeftColor.getHighestColorValue() > maxRadiance){
+                    maxRadiance = upLeftColor.getHighestColorValue();
+                }
+
+                if(downLeftColor.getHighestColorValue() > maxRadiance){
+                    maxRadiance = downLeftColor.getHighestColorValue();
+                }
+
+                if(upRightColor.getHighestColorValue() > maxRadiance){
+                    maxRadiance = upRightColor.getHighestColorValue();
+                }
+
+                if(downRightColor.getHighestColorValue() > maxRadiance){
+                    maxRadiance = downRightColor.getHighestColorValue();
+                }
 
                 leftUpStep = leftUpStep.add(upStep);
                 rightUpStep = rightUpStep.add(upStep);
@@ -76,6 +96,14 @@ public class Camera {
             }
             leftStep = leftStep.subtract(sideStep);
             rightStep = rightStep.add(sideStep);
+        }
+
+        if(maxRadiance<1) maxRadiance = 1;
+
+        for(int x = 0; x < imageLength; x++){
+            for(int y = 0; y < imageLength; y++){
+                output.setRGB(x, y, pixelColors[x][y].getRgbaWithMaxScale(maxRadiance));
+            }
         }
 
         return output;

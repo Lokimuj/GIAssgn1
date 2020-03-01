@@ -99,6 +99,17 @@ public class Vector3D {
         return new Vector3D(this.x/magnitude, this.y/magnitude, this.z/magnitude);
     }
 
+    /**
+     * Assumes both input vectors are normalized, returns vector of incidence
+     * @param incoming
+     * @param normal
+     * @return
+     */
+    public static Vector3D incidence(Vector3D incoming, Vector3D normal){
+        double coefficient = 2 * incoming.dot(normal);
+        return incoming.subtract(normal.scalarMultiply(coefficient));
+    }
+
     @Override
     public String toString() {
         return "[ " + this.x + ", "+ this.y + ", " + this.z + "]";
