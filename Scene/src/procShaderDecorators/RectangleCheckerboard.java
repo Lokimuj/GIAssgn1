@@ -14,9 +14,8 @@ import world.entities.ReflectiveProperties;
 import java.util.Collections;
 import java.util.List;
 
-public class RectangleCheckerboard extends Rectangle {
+public class RectangleCheckerboard extends RectangleTextureDecorator {
 
-    protected Rectangle originalRectangle;
     private double firstSideSize;
     private double secondSideSize;
     private Color evenTileColor;
@@ -29,16 +28,14 @@ public class RectangleCheckerboard extends Rectangle {
             Color evenTileColor,
             Color oddTileColor
     ){
-        this.originalRectangle = originalRectangle;
+        super(originalRectangle);
         this.firstSideSize = firstSideSize;
         this.secondSideSize = secondSideSize;
         this.evenTileColor = evenTileColor;
         this.oddTileColor = oddTileColor;
     }
 
-    public IntersectData intersect(Ray ray){
-        return originalRectangle.intersect(ray);
-    }
+
 
     public Color getColor(World world, IntersectData intersect, List<Light> visibleLights){
 
@@ -58,23 +55,5 @@ public class RectangleCheckerboard extends Rectangle {
         // Return rest of color calculations with this alteration
         return originalRectangle.getColor(world,intersect,visibleLights);
     }
-
-    @Override
-    public ReflectiveProperties getReflectiveProperties() {
-        return originalRectangle.getReflectiveProperties();
-    }
-
-    public Vector3D getCorner() {
-        return originalRectangle.getCorner();
-    }
-
-    public Vector3D getFirstSide() {
-        return originalRectangle.getFirstSide();
-    }
-
-    public Vector3D getSecondSide() {
-        return originalRectangle.getSecondSide();
-    }
-
 
 }

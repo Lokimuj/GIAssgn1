@@ -1,6 +1,8 @@
 package world.configReader;
 
 import procShaderDecorators.RectangleCheckerboard;
+import procShaderDecorators.RectangleImage;
+import procShaderDecorators.RectangleWavy;
 import world.Camera;
 import world.Light;
 import world.entities.Polygon;
@@ -11,6 +13,8 @@ import world.entities.Rectangle;
 import world.entities.ReflectiveProperties;
 import world.entities.Sphere;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -81,6 +85,20 @@ public class Config {
                                         new Color(parseVector(parts[3])),
                                         new Color(parseVector(parts[4]))
                                 );
+                                break;
+                            case "wavy":
+                                finalRectangle = new RectangleWavy(
+                                        finalRectangle,
+                                        Double.parseDouble(parts[1]),
+                                        Double.parseDouble(parts[2]),
+                                        Double.parseDouble(parts[3]),
+                                        new Color(parseVector(parts[4])),
+                                        new Color(parseVector(parts[5]))
+                                );
+                                break;
+                            case "image":
+                                BufferedImage image = ImageIO.read(new File(parts[1]));
+                                finalRectangle = new RectangleImage(finalRectangle,image);
                                 break;
                         }
                     }

@@ -6,6 +6,14 @@ package utils;
  */
 public class Color extends Vector3D {
 
+    public Color(int rgba){
+        this(
+            (double) ((rgba >> 16) & 0xFF) / 0xFF,
+            (double) ((rgba >> 8) & 0xFF) / 0xFF,
+            (double) ( rgba & 0xFF) / 0xFF
+        );
+    }
+
     public Color(double red, double green, double blue) {
         super(red,green,blue);
     }
