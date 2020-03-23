@@ -1,3 +1,10 @@
+package world.entities;
+
+import utils.Color;
+import utils.Vector3D;
+
+import static world.configReader.Config.parseVector;
+
 public class ReflectiveProperties {
 
     public static final String DELIMITER = "\\|";
@@ -21,8 +28,8 @@ public class ReflectiveProperties {
 
     public static ReflectiveProperties readFromString(String input){
         String[] parts = input.split(DELIMITER);
-        Color ambDiffColor = new Color(Vector3D.parseVector(parts[0]));
-        Color specColor = new Color(Vector3D.parseVector(parts[1]));
+        Color ambDiffColor = new Color(parseVector(parts[0]));
+        Color specColor = new Color(parseVector(parts[1]));
         double ambientCoefficient = Double.parseDouble(parts[2]);
         double diffuseCoefficient = Double.parseDouble(parts[3]);
         double specularCoefficient = Double.parseDouble(parts[4]);
@@ -58,5 +65,29 @@ public class ReflectiveProperties {
 
     public double getSpecularExponent() {
         return specularExponent;
+    }
+
+    public void setAmbDiffColor(Color ambDiffColor) {
+        this.ambDiffColor = ambDiffColor;
+    }
+
+    public void setSpecColor(Color specColor) {
+        this.specColor = specColor;
+    }
+
+    public void setAmbientCoefficient(double ambientCoefficient) {
+        this.ambientCoefficient = ambientCoefficient;
+    }
+
+    public void setDiffuseCoefficient(double diffuseCoefficient) {
+        this.diffuseCoefficient = diffuseCoefficient;
+    }
+
+    public void setSpecularCoefficient(double specularCoefficient) {
+        this.specularCoefficient = specularCoefficient;
+    }
+
+    public void setSpecularExponent(double specularExponent) {
+        this.specularExponent = specularExponent;
     }
 }

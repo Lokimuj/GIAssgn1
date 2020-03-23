@@ -1,5 +1,10 @@
+package world;
+
+import world.entities.Entity;
+import utils.Color;
+import utils.Ray;
+
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 /**

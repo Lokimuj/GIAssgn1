@@ -1,3 +1,7 @@
+import world.Camera;
+import world.World;
+import world.configReader.Config;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;

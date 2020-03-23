@@ -1,3 +1,8 @@
+package world;
+
+import utils.Color;
+import utils.Vector3D;
+
 public class Light {
 
     private Vector3D position;

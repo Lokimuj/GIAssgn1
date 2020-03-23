@@ -1,27 +1,31 @@
-import java.sql.Ref;
+package world.entities;
+
+import utils.Color;
+import utils.Ray;
+import utils.Vector3D;
+import world.IntersectData;
+import world.Light;
+import world.World;
+
 import java.util.List;
 
 /**
  * An entity that can be rendered and hit by rays in teh world
  */
-public abstract class Entity {
+public abstract class Entity implements Shape3D {
 
-    private ReflectiveProperties reflectiveProperties;
+    protected ReflectiveProperties reflectiveProperties;
+
+    public Entity(){}
 
     public Entity(ReflectiveProperties reflectiveProperties) {
         this.reflectiveProperties = reflectiveProperties;
     }
 
-    /**
-     * @param ray
-     * @return closest distance along the ray that intersects with this entity
-     */
-    abstract IntersectData intersect(Ray ray);
+    public ReflectiveProperties getReflectiveProperties() {
+        return reflectiveProperties;
+    }
 
-    /**
-     * color to be sent back along the ray if one hits this entity. Will be updated with more complicated functionality
-     * @return
-     */
     public Color getColor(World world, IntersectData intersect, List<Light> visibleLights){
         Color ambientColor = new Color(
                 world.getAmbientColor()

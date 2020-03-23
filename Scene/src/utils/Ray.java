@@ -1,3 +1,7 @@
+package utils;
+
+import utils.Vector3D;
+
 /**
  * A ray for tracing purposes
  */

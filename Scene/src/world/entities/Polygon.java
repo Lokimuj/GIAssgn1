@@ -1,21 +1,29 @@
+package world.entities;
+
+import utils.Ray;
+import utils.Vector3D;
+import world.IntersectData;
+
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Entity that is a co-planar polygon to be hit by rays
+ * world.entities.Entity that is a co-planar polygon to be hit by rays
  */
 public class Polygon extends Entity {
 
     private static final double ANGLE_ERROR_MARGIN = (2 * Math.PI)/1000.0;
 
-    private List<Vector3D> points;
-    private Vector3D planeNormal;
-    private double planeConstant;
+    protected List<Vector3D> points;
+    protected Vector3D planeNormal;
+    protected double planeConstant;
 
-    public Polygon(ReflectiveProperties reflectiveProperties, Vector3D ... points){
+    public Polygon(){}
+
+    public Polygon(ReflectiveProperties reflectiveProperties, Vector3D... points){
         super(reflectiveProperties);
         if(points.length < 3){
-            throw new IllegalArgumentException("Polygon requires at least 3 points");
+            throw new IllegalArgumentException("world.entities.Polygon requires at least 3 points");
         }
         this.points = Arrays.asList(points);
         Vector3D firstSide = points[0].subtract(points[1]);

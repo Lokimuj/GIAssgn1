@@ -1,10 +1,20 @@
+package world.entities;
+
+import world.IntersectData;
+import world.entities.Entity;
+import utils.Ray;
+import utils.Vector3D;
+import world.entities.ReflectiveProperties;
+
 /**
- * Sphere entity
+ * world.entities.Sphere entity
  */
 public class Sphere extends Entity {
 
     private Vector3D center;
     private double radius;
+
+    public Sphere(){}
 
     public Sphere(
             Vector3D center,

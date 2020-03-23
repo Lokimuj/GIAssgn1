@@ -1,3 +1,10 @@
+package world;
+
+import utils.Color;
+import utils.Ray;
+import utils.Vector3D;
+import world.World;
+
 import java.awt.image.BufferedImage;
 
 /**

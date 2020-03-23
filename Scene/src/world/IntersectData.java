@@ -1,3 +1,7 @@
+package world;
+
+import utils.Vector3D;
+
 public class IntersectData {
     public final Vector3D point;
     public final Vector3D normal;

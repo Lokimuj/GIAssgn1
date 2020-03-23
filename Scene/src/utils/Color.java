@@ -1,10 +1,10 @@
-import java.awt.geom.Arc2D;
+package utils;
 
 /**
  * Represents a color to be sent along rays. Will be more complicated with further assignments.
  * xyz equate to rgb radiance
  */
-public class Color extends Vector3D{
+public class Color extends Vector3D {
 
     public Color(double red, double green, double blue) {
         super(red,green,blue);

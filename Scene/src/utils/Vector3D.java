@@ -1,3 +1,5 @@
+package utils;
+
 /**
  * 3D vector class that has useful vector utilities
  * @Author Adrian Postolache axp3806@rit.edu
@@ -14,19 +16,7 @@ public class Vector3D {
         this.z = z;
     }
 
-    /**
-     * Takes in a string of the format "x,y,z" and creates a vector out of those numbers
-     * @param vectorString
-     * @return
-     */
-    public static Vector3D parseVector(String vectorString){
-        String[] vectorArguments = vectorString.split(Config.LIST_DELIMITER);
-        return new Vector3D(
-                Double.parseDouble(vectorArguments[0]),
-                Double.parseDouble(vectorArguments[1]),
-                Double.parseDouble(vectorArguments[2])
-        );
-    }
+
 
     public double getX() {
         return x;
@@ -97,6 +87,10 @@ public class Vector3D {
     public Vector3D normal(){
         double magnitude = this.magnitude();
         return new Vector3D(this.x/magnitude, this.y/magnitude, this.z/magnitude);
+    }
+
+    public double projectOntoThis(Vector3D other){
+        return other.dot(this)/this.magnitude();
     }
 
     /**
