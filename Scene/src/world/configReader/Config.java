@@ -64,7 +64,7 @@ public class Config {
                     Vector3D spherePosition = parseVector(parts[2]);
                     ReflectiveProperties sphereReflective = ReflectiveProperties.readFromString(parts[3]);
 
-                    world.addObject(new Sphere(spherePosition, radius, sphereReflective));
+                    world.addObject(new Sphere(spherePosition, radius, sphereReflective, world));
                     break;
                 case "rectangle":
                     Vector3D rectCenter = parseVector(parts[1]);
@@ -72,7 +72,7 @@ public class Config {
                     Vector3D rectSide2 = parseVector(parts[3]);
                     ReflectiveProperties rectReflective = ReflectiveProperties.readFromString(parts[4]);
 
-                    Rectangle finalRectangle = new Rectangle(rectReflective, rectCenter, rectSide1, rectSide2);
+                    Rectangle finalRectangle = new Rectangle(rectReflective, rectCenter, rectSide1, rectSide2, world);
                     while(parts[parts.length-1].equals(SHADER_LINE_POSTFIX)){
                         line = br.readLine();
                         parts = line.split(ATTRIBUTE_DELIMITER);

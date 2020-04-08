@@ -1,6 +1,7 @@
 package world.entities;
 
 import utils.Vector3D;
+import world.World;
 
 public class Rectangle extends Polygon {
 
@@ -14,10 +15,12 @@ public class Rectangle extends Polygon {
             ReflectiveProperties reflectiveProperties,
             Vector3D corner,
             Vector3D firstSide,
-            Vector3D secondSide
+            Vector3D secondSide,
+            World world
     ){
         super(
                 reflectiveProperties,
+                world,
                 corner.add(firstSide),
                 corner,
                 corner.add(secondSide),

@@ -28,7 +28,7 @@ public class RectangleImage extends RectangleTextureDecorator {
         imageHeight = image.getHeight();
     }
 
-    public Color getColor(World world, IntersectData intersect, List<Light> visibleLights) {
+    public Color getColor(World world, IntersectData intersect, List<Light> visibleLights, int depth) {
 
         // Figure out which checker color should be displayed
         Vector3D cornerToIntersection = intersect.point.subtract(originalRectangle.getCorner());
@@ -43,7 +43,7 @@ public class RectangleImage extends RectangleTextureDecorator {
         Color pixelColor = new Color(image.getRGB(xIndex,yIndex));
 
         getReflectiveProperties().setAmbDiffColor(pixelColor);
-        return originalRectangle.getColor(world,intersect,visibleLights);
+        return originalRectangle.getColor(world,intersect,visibleLights, depth);
     }
 
 }

@@ -10,11 +10,14 @@ public class Ray {
     private Vector3D direction;
     private double magnitude;
 
-    public Ray(Vector3D from, Vector3D to) {
-        this.origin = from;
-        this.direction = to.subtract(from);
+    public Ray(Vector3D start, Vector3D direction) {
+        this.origin = start;
         this.magnitude = direction.magnitude();
-        this.direction = this.direction.normal();
+        this.direction = direction.normal();
+    }
+
+    public static Ray constructFromTwoPoints(Vector3D start, Vector3D end){
+        return new Ray(start, end.subtract(start));
     }
 
     public Vector3D getOrigin() {

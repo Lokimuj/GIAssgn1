@@ -22,7 +22,12 @@ public class World {
 
     private List<Light> lights = new ArrayList<>();
 
+
     public Color traceRay(Ray ray){
+        return traceRay(ray,0);
+    }
+
+    public Color traceRay(Ray ray, int depth){
 
         double shortestDistance = Double.MAX_VALUE;
         IntersectData shortestIntersect = null;
@@ -41,13 +46,13 @@ public class World {
             return BACKGROUND_COLOR;
         }
         List<Light> visibleLights = shadowCheck(shortestIntersect);
-        return closestObject.getColor(this, shortestIntersect, visibleLights);
+        return closestObject.getColor(this, shortestIntersect, visibleLights, depth);
     }
 
     private List<Light> shadowCheck(IntersectData intersectData){
         List<Light> visibleLights = new ArrayList<>();
         for(Light light : lights){
-            Ray toLight = new Ray(intersectData.point, light.getPosition());
+            Ray toLight = Ray.constructFromTwoPoints(intersectData.point, light.getPosition());
 
             //Ignore the light if it comes from behind the surface normal
             if(toLight.getDirection().dot(intersectData.normal) < 0){

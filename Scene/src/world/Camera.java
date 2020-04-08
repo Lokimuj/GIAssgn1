@@ -69,10 +69,10 @@ public class Camera {
             Vector3D rightUpStep = rightStep.add(halfUpStep);
             Vector3D rightDownStep = rightStep.subtract(halfUpStep);
             for(int y = 0; y < imageLength/2; y++){
-                Color upLeftColor = world.traceRay(new Ray(position,leftUpStep));
-                Color downLeftColor = world.traceRay(new Ray(position,leftDownStep));
-                Color upRightColor = world.traceRay(new Ray(position,rightUpStep));
-                Color downRightColor = world.traceRay(new Ray(position,rightDownStep));
+                Color upLeftColor = world.traceRay(Ray.constructFromTwoPoints(position,leftUpStep));
+                Color downLeftColor = world.traceRay(Ray.constructFromTwoPoints(position,leftDownStep));
+                Color upRightColor = world.traceRay(Ray.constructFromTwoPoints(position,rightUpStep));
+                Color downRightColor = world.traceRay(Ray.constructFromTwoPoints(position,rightDownStep));
 
                 pixelColors[leftX - x][upY - y] = upLeftColor;
                 pixelColors[leftX - x][downY + y] = downLeftColor;

@@ -33,7 +33,7 @@ public class RectangleWavy extends RectangleTextureDecorator {
         this.evenColor = evenColor;
     }
 
-    public Color getColor(World world, IntersectData intersect, List<Light> visibleLights) {
+    public Color getColor(World world, IntersectData intersect, List<Light> visibleLights, int depth) {
 
         // Figure out which checker color should be displayed
         Vector3D cornerToIntersection = intersect.point.subtract(originalRectangle.getCorner());
@@ -48,6 +48,6 @@ public class RectangleWavy extends RectangleTextureDecorator {
 
         getReflectiveProperties().setAmbDiffColor(evenCheck % 2 == 0 ? evenColor : oddColor);
 
-        return originalRectangle.getColor(world,intersect,visibleLights);
+        return originalRectangle.getColor(world,intersect,visibleLights, depth);
     }
 }

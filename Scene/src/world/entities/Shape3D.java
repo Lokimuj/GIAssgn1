@@ -19,5 +19,5 @@ public interface Shape3D {
      * color to be sent back along the ray if one hits this entity. Will be updated with more complicated functionality
      * @return
      */
-    Color getColor(World world, IntersectData intersect, List<Light> visibleLights);
+    Color getColor(World world, IntersectData intersect, List<Light> visibleLights, int depth);
 }

@@ -1,6 +1,7 @@
 package world.entities;
 
 import world.IntersectData;
+import world.World;
 import world.entities.Entity;
 import utils.Ray;
 import utils.Vector3D;
@@ -19,8 +20,9 @@ public class Sphere extends Entity {
     public Sphere(
             Vector3D center,
             double radius,
-            ReflectiveProperties reflectiveProperties){
-        super(reflectiveProperties);
+            ReflectiveProperties reflectiveProperties,
+            World world){
+        super(reflectiveProperties, world);
         this.center = center;
         this.radius = radius;
     }

@@ -16,14 +16,22 @@ public class ReflectiveProperties {
     private double diffuseCoefficient;
     private double specularCoefficient;
     private double specularExponent;
+    private double reflectiveCoefficient;
 
-    public ReflectiveProperties(Color ambDiffColor, Color specColor, double ambientCoefficient, double diffuseCoefficient, double specularCoefficient, double specularExponent) {
+    public ReflectiveProperties(Color ambDiffColor,
+                                Color specColor,
+                                double ambientCoefficient,
+                                double diffuseCoefficient,
+                                double specularCoefficient,
+                                double specularExponent,
+                                double reflectiveCoefficient) {
         this.ambDiffColor = ambDiffColor;
         this.specColor = specColor;
         this.ambientCoefficient = ambientCoefficient;
         this.diffuseCoefficient = diffuseCoefficient;
         this.specularCoefficient = specularCoefficient;
         this.specularExponent = specularExponent;
+        this.reflectiveCoefficient = reflectiveCoefficient;
     }
 
     public static ReflectiveProperties readFromString(String input){
@@ -34,12 +42,14 @@ public class ReflectiveProperties {
         double diffuseCoefficient = Double.parseDouble(parts[3]);
         double specularCoefficient = Double.parseDouble(parts[4]);
         double specularExponent = Double.parseDouble(parts[5]);
+        double reflectiveCoefficient = Double.parseDouble(parts[6]);
         return new ReflectiveProperties(ambDiffColor,
                 specColor,
                 ambientCoefficient,
                 diffuseCoefficient,
                 specularCoefficient,
-                specularExponent
+                specularExponent,
+                reflectiveCoefficient
         );
     }
 
@@ -65,6 +75,10 @@ public class ReflectiveProperties {
 
     public double getSpecularExponent() {
         return specularExponent;
+    }
+
+    public double getReflectiveCoefficient() {
+        return reflectiveCoefficient;
     }
 
     public void setAmbDiffColor(Color ambDiffColor) {

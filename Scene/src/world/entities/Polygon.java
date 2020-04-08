@@ -3,6 +3,7 @@ package world.entities;
 import utils.Ray;
 import utils.Vector3D;
 import world.IntersectData;
+import world.World;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +21,8 @@ public class Polygon extends Entity {
 
     public Polygon(){}
 
-    public Polygon(ReflectiveProperties reflectiveProperties, Vector3D... points){
-        super(reflectiveProperties);
+    public Polygon(ReflectiveProperties reflectiveProperties, World world, Vector3D... points){
+        super(reflectiveProperties, world);
         if(points.length < 3){
             throw new IllegalArgumentException("world.entities.Polygon requires at least 3 points");
         }
@@ -36,9 +37,11 @@ public class Polygon extends Entity {
     public static Polygon createRectangle(Vector3D center,
                                           Vector3D sideVector1,
                                           Vector3D sideVector2,
-                                          ReflectiveProperties reflectiveProperties){
+                                          ReflectiveProperties reflectiveProperties,
+                                          World world){
         return new Polygon(
                 reflectiveProperties,
+                world,
                 center.add(sideVector1).subtract(sideVector2),
                 center.add(sideVector1).add(sideVector2),
                 center.subtract(sideVector1).add(sideVector2),

@@ -37,7 +37,7 @@ public class RectangleCheckerboard extends RectangleTextureDecorator {
 
 
 
-    public Color getColor(World world, IntersectData intersect, List<Light> visibleLights){
+    public Color getColor(World world, IntersectData intersect, List<Light> visibleLights, int depth){
 
         // Figure out which checker color should be displayed
         Vector3D cornerToIntersection = intersect.point.subtract(originalRectangle.getCorner());
@@ -53,7 +53,7 @@ public class RectangleCheckerboard extends RectangleTextureDecorator {
         originalRectangle.getReflectiveProperties().setAmbDiffColor(currentColor);
 
         // Return rest of color calculations with this alteration
-        return originalRectangle.getColor(world,intersect,visibleLights);
+        return originalRectangle.getColor(world,intersect,visibleLights, depth);
     }
 
 }

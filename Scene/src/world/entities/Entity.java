@@ -14,19 +14,23 @@ import java.util.List;
  */
 public abstract class Entity implements Shape3D {
 
+    public static final int MAX_DEPTH = 5;
+
     protected ReflectiveProperties reflectiveProperties;
+    protected World world;
 
     public Entity(){}
 
-    public Entity(ReflectiveProperties reflectiveProperties) {
+    public Entity(ReflectiveProperties reflectiveProperties, World world) {
         this.reflectiveProperties = reflectiveProperties;
+        this.world = world;
     }
 
     public ReflectiveProperties getReflectiveProperties() {
         return reflectiveProperties;
     }
 
-    public Color getColor(World world, IntersectData intersect, List<Light> visibleLights){
+    public Color getColor(World world, IntersectData intersect, List<Light> visibleLights, int depth){
         Color ambientColor = new Color(
                 world.getAmbientColor()
                         .multiplyColor(reflectiveProperties.getAmbDiffColor())
@@ -59,9 +63,19 @@ public abstract class Entity implements Shape3D {
                 specularColor = new Color(specularColor.add(specular));
             }
         }
+
+        Color reflectedColor = new Color(0,0,0);
+        if(depth < MAX_DEPTH && reflectiveProperties.getReflectiveCoefficient() > 0){
+            Vector3D reflectionVector = Vector3D.incidence(intersect.lookAt,intersect.normal);
+            Ray reflectionRay = new Ray(intersect.point, reflectionVector);
+            reflectedColor = world.traceRay(reflectionRay,depth+1);
+        }
+
+
         return new Color( ambientColor
                 .add(diffuseColor.scalarMultiply(reflectiveProperties.getDiffuseCoefficient()))
                 .add(specularColor.scalarMultiply(reflectiveProperties.getSpecularCoefficient()))
+                .add(reflectedColor.scalarMultiply(reflectiveProperties.getReflectiveCoefficient()))
         );
     }
 }
