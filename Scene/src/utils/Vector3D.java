@@ -104,6 +104,19 @@ public class Vector3D {
         return incoming.subtract(normal.scalarMultiply(coefficient));
     }
 
+    public static Vector3D refract(Vector3D incoming, Vector3D normal, double outsideRefraction, double insideRefraction){
+        double dot = incoming.dot(normal);
+        double ratio = outsideRefraction / insideRefraction;
+        double internalReflectionCheck = 1 - ratio * ratio * (1 - (dot * dot));
+        if(internalReflectionCheck < 0){
+            return incidence(incoming, normal);
+        }
+
+        Vector3D first = incoming.add(normal.scalarMultiply(dot)).scalarMultiply(ratio);
+
+        return first.add(normal.scalarMultiply(Math.sqrt(internalReflectionCheck))).normal();
+    }
+
     @Override
     public String toString() {
         return "[ " + this.x + ", "+ this.y + ", " + this.z + "]";

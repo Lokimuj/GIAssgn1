@@ -1,6 +1,7 @@
 package world.configReader;
 
 import procShaderDecorators.RectangleCheckerboard;
+import procShaderDecorators.RectangleGradient;
 import procShaderDecorators.RectangleImage;
 import procShaderDecorators.RectangleWavy;
 import world.Camera;
@@ -99,6 +100,9 @@ public class Config {
                             case "image":
                                 BufferedImage image = ImageIO.read(new File(parts[1]));
                                 finalRectangle = new RectangleImage(finalRectangle,image);
+                                break;
+                            case "gradient":
+                                finalRectangle = new RectangleGradient(finalRectangle);
                                 break;
                         }
                     }

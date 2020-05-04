@@ -17,6 +17,8 @@ public class ReflectiveProperties {
     private double specularCoefficient;
     private double specularExponent;
     private double reflectiveCoefficient;
+    private double transmissiveCoefficient;
+    private double refractionIndex;
 
     public ReflectiveProperties(Color ambDiffColor,
                                 Color specColor,
@@ -24,7 +26,9 @@ public class ReflectiveProperties {
                                 double diffuseCoefficient,
                                 double specularCoefficient,
                                 double specularExponent,
-                                double reflectiveCoefficient) {
+                                double reflectiveCoefficient,
+                                double transmissiveCoefficient,
+                                double refractionIndex) {
         this.ambDiffColor = ambDiffColor;
         this.specColor = specColor;
         this.ambientCoefficient = ambientCoefficient;
@@ -32,6 +36,8 @@ public class ReflectiveProperties {
         this.specularCoefficient = specularCoefficient;
         this.specularExponent = specularExponent;
         this.reflectiveCoefficient = reflectiveCoefficient;
+        this.transmissiveCoefficient = transmissiveCoefficient;
+        this.refractionIndex = refractionIndex;
     }
 
     public static ReflectiveProperties readFromString(String input){
@@ -43,13 +49,17 @@ public class ReflectiveProperties {
         double specularCoefficient = Double.parseDouble(parts[4]);
         double specularExponent = Double.parseDouble(parts[5]);
         double reflectiveCoefficient = Double.parseDouble(parts[6]);
+        double transmissiveCoefficient = Double.parseDouble(parts[7]);
+        double refractionIndex = Double.parseDouble(parts[8]);
         return new ReflectiveProperties(ambDiffColor,
                 specColor,
                 ambientCoefficient,
                 diffuseCoefficient,
                 specularCoefficient,
                 specularExponent,
-                reflectiveCoefficient
+                reflectiveCoefficient,
+                transmissiveCoefficient,
+                refractionIndex
         );
     }
 
@@ -79,6 +89,14 @@ public class ReflectiveProperties {
 
     public double getReflectiveCoefficient() {
         return reflectiveCoefficient;
+    }
+
+    public double getTransmissiveCoefficient() {
+        return transmissiveCoefficient;
+    }
+
+    public double getRefractionIndex() {
+        return refractionIndex;
     }
 
     public void setAmbDiffColor(Color ambDiffColor) {

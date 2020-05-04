@@ -14,7 +14,9 @@ public class World {
 
     public static final double SAME_OBJECT_ERROR_MARGIN = 1e-10;
 
-    public static final Color BACKGROUND_COLOR = new Color(1,1,1);
+    public static final Color BACKGROUND_COLOR = new Color(.5,.7,1);
+
+    public static final double AIR_REFRACTION_INDEX = 1.0;
 
     private Color ambientColor ;
 
