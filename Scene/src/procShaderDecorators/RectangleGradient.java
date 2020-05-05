@@ -28,9 +28,9 @@ public class RectangleGradient extends RectangleTextureDecorator {
 
         // Figure out which checker color should be displayed
         Vector3D cornerToIntersection = intersect.point.subtract(originalRectangle.getCorner());
-        double firstSideDistance = originalRectangle.getFirstSide().projectOntoThis(cornerToIntersection);
-        double secondSideDistance = originalRectangle.getSecondSide().projectOntoThis(cornerToIntersection);
-        Color currentColor = new Color(firstSideDistance/firstSideSize, secondSideDistance/secondSideSize,.5);
+        double firstSideDistance = originalRectangle.getFirstSide().normal().projectOntoThis(cornerToIntersection);
+        double secondSideDistance = originalRectangle.getSecondSide().normal().projectOntoThis(cornerToIntersection);
+        Color currentColor = new Color(firstSideDistance/firstSideSize +.3, secondSideDistance/secondSideSize+.3,.5);
         // Update the color on the rectangle for this pixel
         originalRectangle.getReflectiveProperties().setAmbDiffColor(currentColor);
 

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class Entity implements Shape3D {
 
-    public static final int MAX_DEPTH = 5;
+    public static final int MAX_DEPTH = 10;
 
     protected ReflectiveProperties reflectiveProperties;
     protected World world;

@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class Sphere extends Entity {
 
-    private Vector3D center;
-    private double radius;
+    protected Vector3D center;
+    protected double radius;
 
     public Sphere(){}
 

@@ -6,13 +6,10 @@ import procShaderDecorators.RectangleImage;
 import procShaderDecorators.RectangleWavy;
 import world.Camera;
 import world.Light;
-import world.entities.Polygon;
+import world.entities.*;
 import utils.Color;
 import utils.Vector3D;
 import world.World;
-import world.entities.Rectangle;
-import world.entities.ReflectiveProperties;
-import world.entities.Sphere;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -66,6 +63,14 @@ public class Config {
                     ReflectiveProperties sphereReflective = ReflectiveProperties.readFromString(parts[3]);
 
                     world.addObject(new Sphere(spherePosition, radius, sphereReflective, world));
+                    break;
+                case "blackhole":
+                    double sphereOfInfluence = Double.parseDouble(parts[1]);
+                    double horizonRadius = Double.parseDouble(parts[2]);
+                    double whip = Double.parseDouble(parts[3]);
+                    Vector3D holePosition = parseVector(parts[4]);
+
+                    world.addObject(new GravityWell(holePosition,sphereOfInfluence,horizonRadius,whip,world));
                     break;
                 case "rectangle":
                     Vector3D rectCenter = parseVector(parts[1]);
